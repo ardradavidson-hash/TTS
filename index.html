@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Study Voice</title>
+
+  <style>
+    :root {
+      --bg-main: #fde2e8;
+      --bg-panel: #fff5f8;
+      --accent: #f48fb1;
+      --accent-dark: #ec6f9f;
+      --text: #3a3a3a;
+    }
+
+    body.dark {
+      --bg-main: #2b1b22;
+      --bg-panel: #3a2430;
+      --accent: #c86b85;
+      --accent-dark: #a8546c;
+      --text: #f4e9ee;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: var(--bg-main);
+      color: var(--text);
+      transition: 0.3s;
+    }
+
+    #controls {
+      padding: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      background: var(--bg-panel);
+      border-bottom: 3px dotted var(--accent);
+    }
+
+    button {
+      background: var(--accent);
+      border: none;
+      padding: 7px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      color: white;
+    }
+
+    button:hover {
+      background: var(--accent-dark);
+    }
+
+    textarea {
+      width: 100%;
+      height: 110px;
+      border-radius: 14px;
+      border: none;
+      padding: 12px;
+      margin: 10px;
+      background: var(--bg-panel);
+      color: var(--text);
+    }
+
+    #layout {
+      display: flex;
+      height: calc(100vh - 220px);
+    }
+
+    #sentences {
+      width: 35%;
+      overflow-y: auto;
+      padding: 16px;
+      background: var(--bg-panel);
+      border-right: 3px double var(--accent);
+      position: relative;
+    }
+
+    #sentences::before {
+      content: "❀";
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      opacity: 0.4;
+    }
+
+    #sentences div {
+      padding: 8px;
+      margin-bottom: 6px;
+      border-radius: 10px;
+      cursor: pointer;
+      background: rgba(255,255,255,0.6);
+    }
+
+    body.dark #sentences div {
+      background: rgba(0,0,0,0.25);
+    }
+
+    #sentences div.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: white;
+      font-weight: 600;
+    }
+
+    #pdfViewer {
+      width: 65%;
+      overflow-y: auto;
+      padding: 18px;
+      background: white;
+    }
+
+    body.dark #pdfViewer {
+      background: #1f1419;
+    }
+
+    canvas {
+      display: block;
+      margin-bottom: 24px;
+      border-radius: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="controls">
+  <input type="file" id="fileInput" accept=".pdf">
+  <button id="loadTextBtn">Load Text</button>
+  <button id="pauseBtn">Pause / Resume (P)</button>
+  <button id="themeBtn">🌙 Dark Rose</button>
+
+  <label>
+    Speed
+    <input type="range" id="speed" min="0.5" max="1.2" step="0.05" value="0.8">
+  </label>
+
+  <span>← / → rewind • space = next</span>
+</div>
+
+<textarea id="textInput" placeholder="Paste text here if you don’t want to upload a file…"></textarea>
+
+<div id="layout">
+  <div id="sentences"></div>
+  <div id="pdfViewer"></div>
+</div>
+
+<script type="module" src="pdfjs/pdf.mjs"></script>
+<script type="module" src="renderer.js"></script>
+
+</body>
+</html>

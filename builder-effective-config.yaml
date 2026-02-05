@@ -1,0 +1,7 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.tts.app
+productName: TTSApp
+files: []
+electronVersion: 40.1.0
